@@ -11,11 +11,14 @@ export type Theme = {
   success: string;
   error: string;
   danger: string;
+  info: string;
+  warning: string;
   card: string;
   inputBg: string;
   textDisabled: string;
   secondaryTextDefault: string;
   backgroundDarkTransparent: string;
+  placeholder: string;
 }
 
 type ThemeContextData = {
@@ -44,8 +47,11 @@ function ThemeProvider({ children }: Props) {
     card: '#FFFAFA',
     inputBg: '#FFE7F4',
     success: '#C9F3CA',
+    info: '#C9D2F3',
     textDisabled: '#909090',
     backgroundDarkTransparent: '#00000099',
+    placeholder: '#909090',
+    warning: '#F3EFC9'
   }
 
   return (

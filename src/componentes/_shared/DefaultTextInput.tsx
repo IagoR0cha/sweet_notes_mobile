@@ -61,7 +61,7 @@ export function DefaultTextInput(props: Props) {
   function handleContentText(value: string) {
     let currentValue: string | number  = value;
     if (isOnlyNumber) {
-      currentValue = parseInt(currentValue.replace(/[^0-9\.,]/g, ''));
+      currentValue = parseFloat(currentValue.replace(/[^0-9\.,]/g, ''));
     }
 
     onChangeText(currentValue);
@@ -121,9 +121,10 @@ export function DefaultTextInput(props: Props) {
               styleTextInput
             ]}
             onChangeText={handleContentText}
-            placeholderTextColor={placeholderTextColor || theme.secondaryTextDefault}
+            placeholderTextColor={placeholderTextColor || theme.placeholder}
             value={currentInputText}
             multiline={multiline}
+            cursorColor={theme.secondary}
             editable={!disabled ? true : false}
           />
           {enableCleanButton && !!currentInputText &&

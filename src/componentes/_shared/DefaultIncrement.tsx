@@ -40,7 +40,7 @@ export function DefaultIncrement(props: Props) {
   function handleContentText(value: string) {
     let currentValue = value;
 
-    onChangeText(parseInt(currentValue));
+    onChangeText(parseFloat(currentValue));
     setCurrentInput(value);
   }
 
@@ -66,7 +66,7 @@ export function DefaultIncrement(props: Props) {
 
   const handleIncrementValue = useCallback(() => {
     setCurrentInput((valueStg) => {
-      const newValue = parseInt(valueStg) + 1;
+      const newValue = parseFloat(valueStg) + 1;
       onChangeText(newValue);
       return newValue.toString();
     })

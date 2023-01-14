@@ -87,8 +87,6 @@ export function DefaultPickerFromApi<T extends { id: number }>(props: Props<T>) 
     (async () => {
       if (initialId) {
         const initialData = await onGetDataFromApi();
-        console.log(initialData.map(({ id }) => id))
-        console.log(initialId)
 
         const item = initialData.find(({ id }) => id === initialId);
 

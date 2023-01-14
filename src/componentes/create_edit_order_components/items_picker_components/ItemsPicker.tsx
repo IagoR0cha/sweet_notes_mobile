@@ -64,7 +64,6 @@ export function ItemsPicker({ style, itemsValue, onChangeItem }: Props) {
       currentItems.splice(indexToDelete, 1);
     }
 
-    console.log(currentItems)
     onChangeItem(currentItems);
   }, [itemsValue])
 

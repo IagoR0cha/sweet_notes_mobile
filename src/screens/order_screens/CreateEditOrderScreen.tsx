@@ -78,8 +78,6 @@ export function CreateEditOrderScreen({ route }: Props) {
   }
 
   async function save() {
-    console.log(items)
-
     try {
       if (order.id) {
         await Api.Order.update({
