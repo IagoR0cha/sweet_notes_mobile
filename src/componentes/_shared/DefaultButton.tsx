@@ -2,7 +2,7 @@ import { ActivityIndicator, StyleProp, StyleSheet, TextStyle, TouchableOpacity, 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { MaterialIconName } from "../../@types/materialIcon";
-import { ReactNode } from "react";
+import { ElementType, ReactElement, ReactNode } from "react";
 import { DefaultText } from "./DefaultText";
 import { FontWeight } from "../../types/Font.type";
 import { useTheme } from "../../providers/main/theme";

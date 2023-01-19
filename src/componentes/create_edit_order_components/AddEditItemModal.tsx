@@ -39,7 +39,7 @@ export function AddEditItemModal({ onClose, visible, onSave, initialValue, curre
     try {
       return Product.index().then(({ data }) => data);
     } catch(error) {
-      toast.show('Erro ao editar o produto. Tente novamente!', 'error');
+      toast.show('Erro ao editar o produto. Tente novamente!', 'error', 'long');
       return [];
     }
   }

@@ -49,7 +49,7 @@ export function OrdersScreen() {
   }, [])
 
   const handleDelete = async (index: number, id?: number) => {
-    if (!id) return toast.show('Erro ao deletar item. Tente novamente!', 'error');
+    if (!id) return toast.show('Erro ao deletar item. Tente novamente!', 'error', 'long');
 
     await Api.Order.delete(id).then(() => {
       const currentOrders = [...orders];

@@ -42,7 +42,7 @@ export function ProductsScreen() {
   }, [])
 
   const handleDelete = useCallback((index: number, id?: number) => {
-    if (!id) return toast.show('Erro ao deletar item. Tente novamente!', 'error');
+    if (!id) return toast.show('Erro ao deletar item. Tente novamente!', 'error', 'long');
   }, [])
 
   const handleCreateProduct = useCallback(() => {

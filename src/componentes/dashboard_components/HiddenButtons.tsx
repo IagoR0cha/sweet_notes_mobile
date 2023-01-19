@@ -44,7 +44,7 @@ export function HiddenButtons(props: Props) {
 
       toast.show('Ação concluída com sucesso!', 'success');
     } catch(error) {
-      toast.show('Erro ao realizar ação. Tente novamente!', 'error');
+      toast.show('Erro ao realizar ação. Tente novamente!', 'error', 'long');
     }
   }, [id])
 
@@ -69,7 +69,7 @@ export function HiddenButtons(props: Props) {
     if (status === 'close') return null;
 
     return rightKindButtonMap[status];
-  }, [])
+  }, [status])
 
   if (!kindButtonController) {
     return null;

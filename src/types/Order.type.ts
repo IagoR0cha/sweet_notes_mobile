@@ -1,13 +1,15 @@
-import { Item } from './Item.type';
+import { Item, ItemApi } from './Item.type';
 
-type  OrderApi = {
+type OrderApi = {
   id: number;
   description: string;
   status: StatusOrder;
   client: string;
   order_date: Date;
-  items: (Item & { product_name: string })[];
+  items: OrderItem[];
 }
+
+type OrderItem = (ItemApi & { product_name: string });
 
 type Order = Omit<OrderApi, 'id'> & {
   id?: number;
@@ -36,5 +38,6 @@ export {
   OrderIndexParams,
   Order,
   OrderChanged,
-  CreateOrder
+  CreateOrder,
+  OrderItem
 }

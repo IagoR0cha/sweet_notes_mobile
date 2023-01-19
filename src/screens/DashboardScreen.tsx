@@ -99,7 +99,7 @@ export function DashboardScreen() {
       setTodayProductionData(todayProductionDataResponse);
       setOrderData(orderDataResponse);
     } catch(error) {
-      toast.show('Erro ao carregar dados. Tente novamente!', 'error');
+      toast.show('Erro ao carregar dados. Tente novamente!', 'error', 'long');
     }
 
     setIsLoading(false);
@@ -115,9 +115,7 @@ export function DashboardScreen() {
   return (
     <DefaultBackground isLoading={initialIsLoading}>
       <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={getDataFromApi} />
-        }
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={getDataFromApi} />}
       >
         <View style={styles.container}>
           <View style={styles.header}>

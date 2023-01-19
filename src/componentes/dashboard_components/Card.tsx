@@ -1,8 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { ComponentProps, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 import { useTheme } from "../../providers/main/theme";
+import { NavigationStack } from "../../routes/main_routes/_MainNavigator.routes";
 import { OrderApi } from "../../types/Order.type";
 import { DefaultEmptyList } from "../_shared/DefaultEmptyList";
 import { DefaultText } from "../_shared/DefaultText";
@@ -25,10 +27,13 @@ type ListData = Omit<ComponentProps<typeof SwipeListView>, 'data'> & {
 export function Card(props: Props) {
   const { label, value, listData } = props;
 
-  const { theme } = useTheme()
+  const { theme } = useTheme();
+  const navigation = useNavigation<NavigationStack>();
 
-  const handleShowOrder = useCallback(() => {
+  const handleShowOrder = useCallback((order: OrderApi) => {
+    const { id } = order;
 
+    navigation.navigate('OneShowOrderScreen', { id, title: `Pedido ${id}` });
   }, [])
 
   return (
@@ -49,7 +54,7 @@ export function Card(props: Props) {
             renderItem={({ item }) => (
               <CardItem
                 formatDate={listData.formatDate} data={item}
-                onPress={handleShowOrder}
+                onPress={() => handleShowOrder(item)}
                 enablePillStatus={listData.enablePillStatus}
               />
             )}

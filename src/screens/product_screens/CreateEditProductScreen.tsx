@@ -60,7 +60,7 @@ export function CreateEditProductScreen({ route }: Props) {
       setProduct(response);
       setIsLoading(false);
     } catch(error) {
-      toast.show('Erro ao editar o produto. Tente novamente!', 'error');
+      toast.show('Erro ao editar o produto. Tente novamente!', 'error', 'long');
       navigation.goBack();
     }
   }

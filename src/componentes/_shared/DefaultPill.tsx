@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { ComponentProps, useMemo } from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { useTheme } from "../../providers/main/theme";
 import { DefaultText } from "./DefaultText";
@@ -7,6 +7,7 @@ type Props = {
   status: StatusPillKind;
   label: string;
   style?: StyleProp<ViewStyle>;
+  textOptions?: Partial<ComponentProps<typeof DefaultText>>;
 }
 
 export type StatusPillKind = 'warning' | 'success' | 'error';
@@ -17,7 +18,7 @@ type StatusKindMap = {
   }
 }
 
-export function DefaultPill({ status, label, style }: Props) {
+export function DefaultPill({ status, label, style, textOptions }: Props) {
   const { theme } = useTheme();
 
   const statusKindMap: StatusKindMap = {
@@ -36,6 +37,7 @@ export function DefaultPill({ status, label, style }: Props) {
         fontSize={12}
         fontWeight='regular'
         color={theme.secondaryTextDefault}
+        { ...textOptions }
       >
         { label }
       </DefaultText>

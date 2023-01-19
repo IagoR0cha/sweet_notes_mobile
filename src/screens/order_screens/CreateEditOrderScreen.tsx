@@ -7,7 +7,7 @@ import { DefaultBackground } from "../../componentes/_shared/DefaultBackground";
 import { DefaultTextInput } from "../../componentes/_shared/DefaultTextInput";
 import { useValidator } from "../../helpers/useValidator";
 import { MainNavigatorParamList } from "../../routes/main_routes/_MainNavigator.routes";
-import { CreateOrder, Order, OrderApi, OrderChanged, StatusOrder } from "../../types/Order.type"
+import { CreateOrder, Order, OrderChanged, StatusOrder } from "../../types/Order.type"
 import * as Api from "../../service/api";
 import { useToast } from "../../providers/main/toast";
 import { useTheme } from "../../providers/main/theme";
@@ -64,7 +64,7 @@ export function CreateEditOrderScreen({ route }: Props) {
       setItems(response.items)
       setIsLoading(false);
     } catch(error) {
-      toast.show('Erro ao editar o pedido. Tente novamente!', 'error');
+      toast.show('Erro ao editar o pedido. Tente novamente!', 'error', 'long');
       navigation.goBack();
     }
   }

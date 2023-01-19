@@ -1,5 +1,4 @@
-import { StyleSheet, View } from "react-native"
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { StyleSheet, TouchableHighlight, View } from "react-native"
 
 import { statusMap } from "../../helpers/statusMap";
 import { useTransformDate } from "../../helpers/transform_date";
