@@ -90,7 +90,7 @@ export function AddEditItemModal({ onClose, visible, onSave, initialValue, curre
           <DefaultIncrement
             inputStyle={styles.input}
             style={styles.inputContainer}
-            label="Peso de produção"
+            label="Quantidade"
             value={item.quantity}
             error={errors.quantity}
             onChangeText={(value) => {

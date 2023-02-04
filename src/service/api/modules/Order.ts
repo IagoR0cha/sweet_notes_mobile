@@ -1,5 +1,5 @@
 import { APIResponse } from '../../../types/Api.type';
-import { OrderApi, OrderIndexParams, OrderChanged, CreateOrder } from '../../../types/Order.type';
+import { OrderApi, OrderIndexParams, OrderChanged, CreateOrder, CreateResponse } from '../../../types/Order.type';
 import http from '../http';
 
 export default {
@@ -11,7 +11,7 @@ export default {
     return http.get(`/orders/${id}`);
   },
 
-  create(order: CreateOrder): Promise<APIResponse<OrderApi>> {
+  create(order: CreateOrder): Promise<APIResponse<CreateResponse>> {
     return http.post('/orders', { order })
   },
 

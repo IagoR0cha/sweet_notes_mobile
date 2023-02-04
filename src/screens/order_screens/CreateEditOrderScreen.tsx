@@ -18,6 +18,8 @@ import { useTransformDate } from "../../helpers/transform_date";
 import { DatetimePicker } from "../../componentes/_shared/DatetimePicker";
 import { ItemsPicker } from "../../componentes/create_edit_order_components/items_picker_components/ItemsPicker";
 import { Item } from "../../types/Item.type";
+import { CreateOrderMessage } from "../../componentes/order_components/CreateOrderMessage";
+import { TodayProductionData } from "../../types/Production.type";
 
 type Props = {
   route: RouteProp<MainNavigatorParamList, 'CreateEditOrder'>;
@@ -39,6 +41,7 @@ export function CreateEditOrderScreen({ route }: Props) {
     status: 'open'
   } as unknown as Order);
   const [items, setItems] = useState<Item[]>([]);
+  const [currentProductionData, setCurrentProductionData] = useState<{data: TodayProductionData, isShow: boolean} | { isShow: false }>({ isShow: false });
 
   const toast = useToast();
   const navigation = useNavigation();
@@ -84,15 +87,22 @@ export function CreateEditOrderScreen({ route }: Props) {
           ...order,
           itemizations_attributes: items
         } as CreateOrder);
+
+        toast.show('Pedido salvo com sucesso!', 'success');
+        navigation.goBack();
       } else {
-        await Api.Order.create({
+        const { production } = await Api.Order.create({
           ...order,
           itemizations_attributes: items
-        });
-      }
+        }).then(({ data }) => data);
 
-      toast.show('Pedido salvo com sucesso!', 'success');
-      navigation.goBack();
+        if (production.alert_kind) {
+          setCurrentProductionData({ data: production, isShow: true });
+        } else {
+          toast.show('Pedido salvo com sucesso!', 'success');
+          navigation.goBack();
+        }
+      }
     } catch(error) {
       toast.show('Erro ao salvar o pedido... Tente novamente!', 'error', 'long');
     }
@@ -102,9 +112,14 @@ export function CreateEditOrderScreen({ route }: Props) {
     setIsShowDatePicker(true);
   }, [])
 
+  const handleSubmit = useCallback(() => {
+    toast.show('Pedido salvo com sucesso!', 'success');
+    navigation.goBack();
+  }, [])
+
   useEffect(() => {
     navigation.setOptions({
-      title: (route.params && route.params.title) || 'Novo produto',
+      title: (route.params && route.params.title) || 'Novo pedido',
       headerRight: () => (
         <DefaultButton
           label='Salvar'
@@ -122,84 +137,91 @@ export function CreateEditOrderScreen({ route }: Props) {
   return (
     <DefaultBackground isLoading={isLoading}>
       <ScrollView>
-      <View style={{ paddingVertical: 16 }}>
-        <DefaultTextInput
-          inputStyle={styles.input}
-          style={styles.inputContainer}
-          label='Cliente'
-          placeholder='Insira o nome do cliente'
-          value={order.client}
-          error={errors.client}
-          onChangeText={(value) => handleChangeProduct({ client: value as string })}
-          onFocus={() => handleError(null, 'client')}
-        />
-        <DefaultPicker
-          style={[styles.input]}
-          containerStyle={styles.inputContainer}
-          label="Status"
-          data={statusMap}
-          placeholder='Selecione o status'
-          onItemSelect={(value) => handleChangeProduct({ status: value as StatusOrder })}
-          initialValue={statusMap[0]}
-          keyToLabel={'label'}
-        />
-        <>
-          <TouchableHighlight
-            style={[styles.inputContainer, { backgroundColor: theme.inputBg, borderRadius: 10, }]}
-            onPress={handleShowDatePicker}
-          >
-            <View style={[styles.button, {
-              backgroundColor: theme.inputBg,
-            }, styles.input]}>
-              <DefaultText
-                style={styles.textLabel}
-                color={theme.secondaryTextDefault}
-                fontSize={12}
-                fontWeight='regular'
-              >
-                Data de entrega
-              </DefaultText>
-              <View style={styles.buttonContainer}>
-              <DefaultText
-                fontSize={14}
-                color={theme.primaryTextDefault}
-              >
-                { useTransformDate(order.order_date, 'DD/MM/YYYY HH:mm') }
-              </DefaultText>
-              <View style={{ flex: 1 }}>
-                <MaterialCommunityIcons
-                  style={{ alignSelf: 'flex-end' }}
-                  name={'chevron-down'}
-                  size={24}
-                  color={theme.primaryTextDefault}
-                />
-              </View>
-            </View>
-            </View>
-          </TouchableHighlight>
-          <DatetimePicker
-            showPicker={isShowDatePicker}
-            setShowPicker={setIsShowDatePicker}
-            onChange={(value) => handleChangeProduct({ order_date: value })}
+        <View style={{ paddingVertical: 16 }}>
+          <DefaultTextInput
+            inputStyle={styles.input}
+            style={styles.inputContainer}
+            label='Cliente'
+            placeholder='Insira o nome do cliente'
+            value={order.client}
+            error={errors.client}
+            onChangeText={(value) => handleChangeProduct({ client: value as string })}
+            onFocus={() => handleError(null, 'client')}
           />
-        </>
-        <DefaultTextInput
-          inputStyle={styles.input}
-          style={styles.inputContainer}
-          label='Descrição'
-          placeholder='Insira uma descrição (Opcional)'
-          value={order.description}
-          error={errors.description}
-          multiline
-          onChangeText={(value) => handleChangeProduct({ description: value as string })}
-        />
-        <ItemsPicker
-          style={[styles.inputContainer, styles.input]}
-          itemsValue={items}
-          onChangeItem={setItems}
-        />
-      </View>
+          <DefaultPicker
+            style={[styles.input]}
+            containerStyle={styles.inputContainer}
+            label="Status"
+            data={statusMap}
+            placeholder='Selecione o status'
+            onItemSelect={(value) => handleChangeProduct({ status: value as StatusOrder })}
+            initialValue={statusMap[0]}
+            keyToLabel={'label'}
+          />
+          <>
+            <TouchableHighlight
+              style={[styles.inputContainer, { backgroundColor: theme.inputBg, borderRadius: 10, }]}
+              onPress={handleShowDatePicker}
+            >
+              <View style={[styles.button, {
+                backgroundColor: theme.inputBg,
+              }, styles.input]}>
+                <DefaultText
+                  style={styles.textLabel}
+                  color={theme.secondaryTextDefault}
+                  fontSize={12}
+                  fontWeight='regular'
+                >
+                  Data de entrega
+                </DefaultText>
+                <View style={styles.buttonContainer}>
+                <DefaultText
+                  fontSize={14}
+                  color={theme.primaryTextDefault}
+                >
+                  { useTransformDate(order.order_date, 'DD/MM/YYYY HH:mm') }
+                </DefaultText>
+                <View style={{ flex: 1 }}>
+                  <MaterialCommunityIcons
+                    style={{ alignSelf: 'flex-end' }}
+                    name={'chevron-down'}
+                    size={24}
+                    color={theme.primaryTextDefault}
+                  />
+                </View>
+              </View>
+              </View>
+            </TouchableHighlight>
+            <DatetimePicker
+              showPicker={isShowDatePicker}
+              setShowPicker={setIsShowDatePicker}
+              onChange={(value) => handleChangeProduct({ order_date: value })}
+            />
+          </>
+          <DefaultTextInput
+            inputStyle={styles.input}
+            style={styles.inputContainer}
+            label='Descrição'
+            placeholder='Insira uma descrição (Opcional)'
+            value={order.description}
+            error={errors.description}
+            multiline
+            onChangeText={(value) => handleChangeProduct({ description: value as string })}
+          />
+          <ItemsPicker
+            style={[styles.inputContainer, styles.input]}
+            itemsValue={items}
+            onChangeItem={setItems}
+          />
+        </View>
       </ScrollView>
+      {currentProductionData.isShow &&
+        <CreateOrderMessage
+          visible={currentProductionData.isShow}
+          productionData={currentProductionData.data}
+          onSubmit={handleSubmit}
+        />
+      }
     </DefaultBackground>
   )
 }

@@ -4,6 +4,7 @@ import { Platform, StyleSheet, View } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { DefaultModal } from './default_modal_components/DefaultModal';
 import dayjs from 'dayjs';
+import { useTheme } from '../../providers/main/theme';
 
 type Props = {
   showPicker: boolean;
@@ -18,6 +19,8 @@ export type TypeInterval = 'max' | 'min';
 
 export function DefaultDateTimePicker(props: Props) {
   const [auxDate, setAuxDate] = useState(props.initialValue ? new Date(props.initialValue) : new Date);
+
+  const { theme } = useTheme();
 
   const {
     showPicker,
@@ -66,14 +69,16 @@ export function DefaultDateTimePicker(props: Props) {
           closeModal={setShowPicker}
           enableFooterButton
           submit={handleSubmitDateOnIOS}
+          footerButtonBackgroundColor={theme.success}
         >
           <View style={styles.modalContainer}>
             <DateTimePicker
               style={{ width: '100%'}}
               value={auxDate}
               onChange={handleSetDate}
-              display="inline"
+              display={mode === 'date' ? 'inline' : 'spinner' }
               mode={mode}
+              themeVariant={'light'}
               minimumDate={intervalController && intervalController('min')}
               maximumDate={intervalController && intervalController('max')}
             />

@@ -54,6 +54,20 @@ export function ProductsScreen() {
   }, [])
 
   useEffect(() => {
+    (() => {
+      navigation.removeListener('focus', () => {});
+
+      navigation.addListener('focus', () => {
+        getDataFromApi();
+      })
+    })()
+
+    return () => {
+      navigation.removeListener('focus', () => {});
+    }
+  }, [])
+
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <DefaultButton

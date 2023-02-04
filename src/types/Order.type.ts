@@ -1,4 +1,5 @@
 import { Item, ItemApi } from './Item.type';
+import { TodayProductionData } from './Production.type';
 
 type OrderApi = {
   id: number;
@@ -32,6 +33,11 @@ type OrderIndexParams = {
   status?: StatusOrder[];
 }
 
+type CreateResponse = {
+  order: OrderApi;
+  production: TodayProductionData;
+}
+
 export {
   OrderApi,
   StatusOrder,
@@ -39,5 +45,6 @@ export {
   Order,
   OrderChanged,
   CreateOrder,
-  OrderItem
+  OrderItem,
+  CreateResponse
 }

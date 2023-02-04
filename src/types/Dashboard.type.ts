@@ -1,8 +1,3 @@
-type DashboardProduction = {
-  current_value: number;
-  limit_value: number;
-}
-
 type OrderData = {
   opened_orders_count: number;
   closed_orders_count: number;
@@ -10,6 +5,5 @@ type OrderData = {
 }
 
 export {
-  DashboardProduction,
   OrderData
 }

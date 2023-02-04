@@ -1,9 +1,10 @@
 import { APIResponse } from '../../../types/Api.type';
-import { DashboardProduction, OrderData } from '../../../types/Dashboard.type';
+import { OrderData } from '../../../types/Dashboard.type';
+import { TodayProductionData } from '../../../types/Production.type';
 import http from '../http';
 
 export default {
-  production(): Promise<APIResponse<DashboardProduction>> {
+  production(): Promise<APIResponse<TodayProductionData>> {
     return http.get('/dashboard/production');
   },
 

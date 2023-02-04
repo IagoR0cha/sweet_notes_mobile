@@ -1,4 +1,4 @@
-import { ComponentProps, useCallback, useEffect, useMemo, useState } from "react";
+import { ComponentProps, useCallback, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
@@ -9,13 +9,13 @@ import { DefaultListItem } from "../../componentes/_shared/DefaultListItem";
 import * as Api from "../../service/api";
 import { OrderApi, OrderIndexParams, StatusOrder } from "../../types/Order.type";
 import { useTransformDate } from '../../helpers/transform_date';
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NavigationStack } from "../../routes/main_routes/_MainNavigator.routes";
 import { DefaultButton } from "../../componentes/_shared/DefaultButton";
 import { useTheme } from "../../providers/main/theme";
 import { useToast } from "../../providers/main/toast";
 import { OrderFilter } from "../../componentes/order_components/OrderFilter";
-import { DefaultPill, StatusPillKind } from "../../componentes/_shared/DefaultPill";
+import { DefaultPill } from "../../componentes/_shared/DefaultPill";
 
 type StatusMap = {
   [key in StatusOrder]: ComponentProps<typeof DefaultPill>;
@@ -77,6 +77,12 @@ export function OrdersScreen() {
     getDataFromApi();
   }, [filterParams])
 
+  useFocusEffect(
+    useCallback(() => {
+      getDataFromApi();
+    }, [filterParams])
+  )
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -137,6 +143,7 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: 16,
     paddingVertical: 8,
+    paddingBottom: 100
   },
   orderFilterButton: {
     position: 'absolute',

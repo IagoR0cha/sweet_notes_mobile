@@ -18,6 +18,7 @@ export function MenuNavigator() {
       <Screen
         name='MenuScreen'
         component={MenuScreen}
+        options={{ title: 'Menu' }}
       />
     </Navigator>
   )
