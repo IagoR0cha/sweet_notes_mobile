@@ -8,9 +8,10 @@ type OrderApi = {
   client: string;
   order_date: Date;
   items: OrderItem[];
+  total_price: number;
 }
 
-type OrderItem = (ItemApi & { product_name: string });
+type OrderItem = (ItemApi & { product_name: string, product_price: number });
 
 type Order = Omit<OrderApi, 'id'> & {
   id?: number;

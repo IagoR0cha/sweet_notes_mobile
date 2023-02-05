@@ -13,7 +13,6 @@ import { useToast } from "../../providers/main/toast"
 import { MainNavigatorParamList } from "../../routes/main_routes/_MainNavigator.routes"
 import { Order } from "../../service/api"
 import { OrderApi } from "../../types/Order.type"
-import { DashboardScreen } from "../DashboardScreen"
 
 type Props = {
   route: RouteProp<MainNavigatorParamList, 'OneShowOrderScreen'>;
@@ -89,7 +88,7 @@ export function OneShowOrderScreen({ route }: Props) {
       {order &&
         <ScrollView>
           <View style={styles.container}>
-            <View style={[styles.mainContent, styles.spacingHorizontal,  styles. spacingVertical, { backgroundColor: theme.primary }]}>
+            <View style={[styles.mainContent, styles.spacingHorizontal, styles.spacingVertical, { backgroundColor: theme.primary }]}>
               {infoDataMap.map(({ label, value, defaultValue }, index) => (
                 <View key={index} style={[styles.infoDataContainer]}>
                   <DefaultText  style={{ marginRight: 5 }} fontSize={16}
@@ -121,6 +120,16 @@ export function OneShowOrderScreen({ route }: Props) {
                 ))}
               </>
             </Card>
+            <View style={[styles.mainContent, styles.spacingHorizontal, styles.spacingVertical, styles.totalContainer, { backgroundColor: theme.primary }]}>
+              <DefaultText  style={{ marginRight: 5 }} fontSize={16}
+                color={theme.secondaryTextDefault} fontWeight='medium'
+              >
+                Preço total:
+              </DefaultText>
+              <DefaultText fontSize={20} color={theme.primaryTextDefault} fontWeight='bold'>
+                R${ order.total_price.toFixed(2) }
+              </DefaultText>
+            </View>
           </View>
         </ScrollView>
       }
@@ -147,5 +156,10 @@ const styles = StyleSheet.create({
   },
   spacingVertical: {
     marginVertical: 5
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 })

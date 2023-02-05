@@ -86,7 +86,7 @@ export function ProductsScreen() {
         data={orders}
         renderItem={({ item }) => (
           <DefaultListItem
-            title={item.name}
+            title={`${item.id}. ${item.name}`}
             onEdit={() => handleEdit(item)}
           />
         )}

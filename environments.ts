@@ -20,7 +20,7 @@ const ENV: ENVMap = {
   },
   prod: {
     name: 'prod',
-    apiUrl: '',
+    apiUrl: 'http://sweet-notes-app.herokuapp.com',
   }
 }
 
@@ -31,5 +31,5 @@ export function getEnvVars(env = Updates.channel): ENVObj {
     return ENV.prod
   }
 
-  return ENV.dev;
+  return ENV.prod;
 }

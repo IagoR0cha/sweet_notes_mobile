@@ -14,12 +14,13 @@ type InfoMap = {
 }
 
 export function CardOrderItems({ data, index }: Props) {
-  const { product_name, quantity, observation } = data;
+  const { product_name, quantity, observation, product_price } = data;
 
   const { theme } = useTheme();
 
   const infoMap: InfoMap[] = [
     { label: 'Quantidade:', value: `${quantity}` },
+    { label: 'Preço unitário:', value: `R$${product_price.toFixed(2)}` },
     { label: 'Observação:', value: observation },
   ]
 

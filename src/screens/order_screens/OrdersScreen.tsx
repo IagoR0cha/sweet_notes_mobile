@@ -63,6 +63,12 @@ export function OrdersScreen() {
     navigation.navigate('CreateEditOrder');
   }, [])
 
+  const handleShowOrder = useCallback((item: OrderApi) => {
+    const { id } = item;
+
+    navigation.navigate('OneShowOrderScreen', { id, title: `Pedido ${id}` });
+  }, [])
+
   const statusController = useCallback((status: StatusOrder) => {
     const statusMap: StatusMap = {
       open: { label: 'Aberto', status: 'success' },
@@ -108,6 +114,7 @@ export function OrdersScreen() {
               centerText={useTransformDate(item.order_date, 'DD/MM/YYYY HH:mm')}
               onEdit={() => handleEdit(item)}
               pillData={statusController(item.status)}
+              onPress={() => handleShowOrder(item)}
             />
           )}
           keyExtractor={(item) => item.key.toString()}

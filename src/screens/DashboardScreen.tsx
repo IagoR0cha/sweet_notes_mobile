@@ -9,7 +9,8 @@ import * as Api from "../service/api";
 import { OrderApi } from "../types/Order.type";
 
 import Logo from '../assets/logo.png';
-import { DashboardProduction, OrderData } from "../types/Dashboard.type";
+import { OrderData } from "../types/Dashboard.type";
+import { TodayProductionData } from "../types/Production.type";
 
 type CardMap = {
 
@@ -20,7 +21,7 @@ export function DashboardScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [todayOrders, setTodayOrders] = useState<OrderApi[]>([]);
   const [paymentPendingWeekOrders, setPaymentPendingWeekOrders] = useState<OrderApi[]>([]);
-  const [todayProductionData, setTodayProductionData] = useState({} as DashboardProduction);
+  const [todayProductionData, setTodayProductionData] = useState({} as TodayProductionData);
   const [orderData, setOrderData] = useState({} as OrderData);
 
   const toast = useToast();
