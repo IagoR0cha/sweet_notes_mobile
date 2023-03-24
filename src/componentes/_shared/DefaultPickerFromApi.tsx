@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleProp, StyleSheet, TouchableHighlight, View, ViewStyle } from "react-native";
+import { ActivityIndicator, Dimensions, FlatList, StyleProp, StyleSheet, TouchableHighlight, View, ViewStyle } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { DefaultButton } from "./DefaultButton";
@@ -203,7 +203,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     elevation: 0,
-    borderBottomWidth: 2
+    borderBottomWidth: 2,
+    marginBottom: 3
   },
   separator: {
     height: 2
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     minHeight: 200,
     justifyContent: 'center',
-    paddingBottom: 16
+    maxHeight: Dimensions.get('screen').height - 200
   },
   errorMessageContainer: {
     height: 15,

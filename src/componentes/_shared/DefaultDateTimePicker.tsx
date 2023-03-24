@@ -9,8 +9,9 @@ import { useTheme } from '../../providers/main/theme';
 type Props = {
   showPicker: boolean;
   onChangeDate: (selectedDate: Date) => void;
-  setShowPicker: (status: boolean) => void;
+  setShowPicker?: (status: boolean) => void;
   intervalController?: (type: TypeInterval) => Date | undefined;
+  onDismissed?: () => void;
   initialValue?: Date;
   mode: 'time' | 'date'
 }
@@ -27,26 +28,28 @@ export function DefaultDateTimePicker(props: Props) {
     setShowPicker,
     intervalController,
     onChangeDate,
-    mode
+    mode,
+    onDismissed
   } = props;
 
   function handleSetDate(event: DateTimePickerEvent, currentSelectedDate: any) {
     if (!currentSelectedDate || event.type === 'dismissed') {
-      setShowPicker(false);
+      setShowPicker && setShowPicker(false);
+      onDismissed && onDismissed();
       return null;
     }
 
     const selectedDate = new Date(dayjs(currentSelectedDate).toISOString())
 
     if(Platform.OS === 'android') {
-      setShowPicker(false);
+      setShowPicker && setShowPicker(false);
       onChangeDate(selectedDate);
     }
     setAuxDate(currentSelectedDate);
   }
 
   function handleSubmitDateOnIOS() {
-    setShowPicker(false);
+    setShowPicker && setShowPicker(false);
     onChangeDate(auxDate);
   }
 

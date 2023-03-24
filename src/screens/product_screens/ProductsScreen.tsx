@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 import { DefaultBackground } from "../../componentes/_shared/DefaultBackground";

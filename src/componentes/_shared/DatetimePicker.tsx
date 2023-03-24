@@ -38,28 +38,26 @@ export function DatetimePicker({ setShowPicker, showPicker, onChange }: Props) {
     setDateData((props) => ({ ...props, [`${key}`]: value }));
 
     if (stagePicker + 1 < pickerMap.length) {
-      setStagePicker((currentValue) => currentValue + 1);
-      setShowPicker(false);
-      setShowPicker(true);
-
-      return;
+      return setStagePicker((currentValue) => currentValue + 1);
     }
 
-    setStagePicker(0);
     setShowPicker(false);
+    setStagePicker(0);
 
     const hour = dayjs(value).hour();
     const minute = dayjs(value).minute();
 
-    // onChange(dayjs(dateData.date).hour(hour).minute(minute).subtract(3, 'hour').toDate());
     onChange(dayjs(dateData.date).hour(hour).minute(minute).toDate());
   }, [stagePicker, dateData])
+
+
+  if (!showPicker) return null;
 
   return (
     <DefaultDateTimePicker
       mode={pickerController.mode}
       onChangeDate={(value) => handleChangeDateData(pickerController.key, value)}
-      setShowPicker={setShowPicker}
+      onDismissed={() => setShowPicker(false)}
       showPicker={showPicker}
     />
   )
