@@ -12,9 +12,6 @@
       },
       "env": {
         "APP_ENV": "dev"
-      },
-      "ios": {
-        "resourceClass": "m1-medium"
       }
     },
     "prod": {
@@ -25,9 +22,6 @@
       },
       "env": {
         "APP_ENV": "prod"
-      },
-      "ios": {
-        "resourceClass": "m1-medium"
       }
     }
   },

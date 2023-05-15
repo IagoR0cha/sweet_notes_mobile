@@ -11,7 +11,7 @@ type ENVMap = {
   [key in ENVType]: ENVObj;
 }
 
-const localhost = 'http://192.168.0.110:3000';
+const localhost = 'http://192.168.0.104:3000';
 
 const ENV: ENVMap = {
   dev: {

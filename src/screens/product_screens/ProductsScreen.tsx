@@ -41,8 +41,15 @@ export function ProductsScreen() {
     });
   }, [])
 
-  const handleDelete = useCallback((index: number, id?: number) => {
+  const handleDelete = useCallback(async (index: number, id?: number) => {
     if (!id) return toast.show('Erro ao deletar item. Tente novamente!', 'error', 'long');
+
+    // await Api.Product.delete(id).then(() => {
+    //   const currentOrders = [...orders];
+    //   currentOrders.splice(index, 1);
+
+    //   setOrders(currentOrders);
+    // })
   }, [])
 
   const handleCreateProduct = useCallback(() => {
